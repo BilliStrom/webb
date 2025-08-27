@@ -203,13 +203,14 @@
         }
         
         .floating-cube {
-            width: 300px;
-            height: 300px;
+            width: 200px;
+            height: 200px;
             position: relative;
             margin: 0 auto;
             transform-style: preserve-3d;
             transform: rotateX(-25deg) rotateY(45deg);
             animation: rotate 20s infinite linear;
+            will-change: transform; /* Улучшает производительность */
         }
         
         .cube-face {
@@ -224,35 +225,37 @@
             gap: 4px;
             padding: 4px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backface-visibility: visible;
+            -webkit-backface-visibility: visible; /* Для Safari */
         }
         
         .cube-face-front {
-            transform: translateZ(150px);
+            transform: translateZ(100px);
             background: #FF5252;
         }
         
         .cube-face-back {
-            transform: translateZ(-150px) rotateY(180deg);
+            transform: translateZ(-100px) rotateY(180deg);
             background: #FF9800;
         }
         
         .cube-face-right {
-            transform: translateX(150px) rotateY(90deg);
+            transform: translateX(100px) rotateY(90deg);
             background: #4CAF50;
         }
         
         .cube-face-left {
-            transform: translateX(-150px) rotateY(-90deg);
+            transform: translateX(-100px) rotateY(-90deg);
             background: #2196F3;
         }
         
         .cube-face-top {
-            transform: translateY(-150px) rotateX(90deg);
+            transform: translateY(-100px) rotateX(90deg);
             background: #FFFFFF;
         }
         
         .cube-face-bottom {
-            transform: translateY(150px) rotateX(-90deg);
+            transform: translateY(100px) rotateX(-90deg);
             background: #FFEB3B;
         }
         
@@ -680,43 +683,56 @@
         }
         
         @media (max-width: 768px) {
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            nav ul {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: white;
-                flex-direction: column;
-                padding: 20px;
-                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-                gap: 15px;
-            }
-            
-            nav ul.active {
-                display: flex;
-            }
-            
-            .hero h1 {
-                font-size: 2.3rem;
-            }
-            
-            .section-title {
-                font-size: 2rem;
-            }
-            
             .floating-cube {
-                width: 250px;
-                height: 250px;
+                width: 150px;
+                height: 150px;
+                animation: rotate-mobile 15s infinite linear;
             }
             
             .cube-face {
-                transform: translateZ(125px);
+                gap: 2px;
+                padding: 2px;
             }
+            
+            .cube-face-front {
+                transform: translateZ(75px);
+            }
+            
+            .cube-face-back {
+                transform: translateZ(-75px) rotateY(180deg);
+            }
+            
+            .cube-face-right {
+                transform: translateX(75px) rotateY(90deg);
+            }
+            
+            .cube-face-left {
+                transform: translateX(-75px) rotateY(-90deg);
+            }
+            
+            .cube-face-top {
+                transform: translateY(-75px) rotateX(90deg);
+            }
+            
+            .cube-face-bottom {
+                transform: translateY(75px) rotateX(-90deg);
+            }
+            
+            /* Альтернативная анимация для слабых устройств */
+            @keyframes rotate-mobile {
+                from {
+                    transform: rotateX(-25deg) rotateY(0);
+                }
+                to {
+                    transform: rotateX(-25deg) rotateY(360deg);
+                }
+            }
+        }
+        
+        /* Дополнительные улучшения для производительности */
+        .hero-visual {
+            perspective: 1000px;
+            transform-style: preserve-3d;
         }
     </style>
 </head>
@@ -949,6 +965,8 @@
             // Mobile menu toggle
             const menuBtn = document.querySelector('.mobile-menu-btn');
             const navMenu = document.querySelector('nav ul');
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            const cube = document.querySelector('.floating-cube');
             
             menuBtn.addEventListener('click', function() {
                 navMenu.classList.toggle('active');
