@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RubikMagic - развивающие занятия для детей</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: #333;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header styles */
+        header {
+            background: linear-gradient(90deg, #ff8a00, #e52e71);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-text {
+            font-family: 'Comic Neue', cursive;
+            font-weight: 700;
+            font-size: 28px;
+            color: white;
+            margin-left: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, #ff0000, #ff9900, #ffff00, #00ff00, #0000ff, #6600cc);
+            border-radius: 8px;
+            transform: rotate(15deg);
+            animation: pulse 2s infinite;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+        
+        nav ul li a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        /* Hero section */
+        .hero {
+            padding: 160px 0 100px;
+            text-align: center;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23e52e71" fill-opacity="0.1" d="M0,128L48,117.3C96,107,192,85,288,112C384,139,480,213,576,224C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>') no-repeat bottom;
+            background-size: cover;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: #333;
+            animation: fadeInDown 1s ease;
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            color: #555;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(90deg, #ff8a00, #e52e71);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(229, 46, 113, 0.4);
+            animation: pulse 2s infinite;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(229, 46, 113, 0.6);
+        }
+        
+        /* Benefits section */
+        .benefits {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            color: #333;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(90deg, #ff8a00, #e52e71);
+            margin: 15px auto;
+            border-radius: 5px;
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .benefit-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            transform: translateY(50px);
+            opacity: 0;
+        }
+        
+        .benefit-card.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .benefit-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ff8a00, #e52e71);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            color: white;
+        }
+        
+        .benefit-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .benefit-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* Interactive cube section */
+        .interactive-cube {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            text-align: center;
+        }
+        
+        .cube-container {
+            perspective: 1000px;
+            margin: 60px auto;
+            width: 200px;
+            height: 200px;
+            position: relative;
+        }
+        
+        .cube {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transform: rotateX(-25deg) rotateY(45deg);
+            animation: rotate 15s infinite linear;
+        }
+        
+        .cube-face {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 2px solid #333;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 4px;
+            padding: 4px;
+        }
+        
+        .cube-face-front {
+            transform: translateZ(100px);
+            background: #ff0000;
+        }
+        
+        .cube-face-back {
+            transform: translateZ(-100px) rotateY(180deg);
+            background: #ff9900;
+        }
+        
+        .cube-face-right {
+            transform: translateX(100px) rotateY(90deg);
+            background: #00ff00;
+        }
+        
+        .cube-face-left {
+            transform: translateX(-100px) rotateY(-90deg);
+            background: #0000ff;
+        }
+        
+        .cube-face-top {
+            transform: translateY(-100px) rotateX(90deg);
+            background: #ffffff;
+        }
+        
+        .cube-face-bottom {
+            transform: translateY(100px) rotateX(-90deg);
+            background: #ffff00;
+        }
+        
+        .cube-small {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 4px;
+        }
+        
+        /* Courses section */
+        .courses {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .course-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            transform: scale(0.9);
+            opacity: 0;
+        }
+        
+        .course-card.visible {
+            transform: scale(1);
+            opacity: 1;
+        }
+        
+        .course-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .course-image {
+            height: 200px;
+            background: linear-gradient(135deg, #ff8a00, #e52e71);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+        
+        .course-content {
+            padding: 25px;
+        }
+        
+        .course-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .course-content p {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .course-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #e52e71;
+            margin-bottom: 20px;
+        }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(90deg, #ff8a00, #e52e71);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3:after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: white;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-column p, .footer-column li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-column a:hover {
+            color: #ffeb3b;
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Animations */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes rotate {
+            from {
+                transform: rotateX(-25deg) rotateY(0);
+            }
+            to {
+                transform: rotateX(-25deg) rotateY(360deg);
+            }
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 5px 10px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon"></div>
+                    <div class="logo-text">RubikMagic</div>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#benefits">Преимущества</a></li>
+                        <li><a href="#courses">Курсы</a></li>
+                        <li><a href="#interactive">Играть</a></li>
+                        <li><a href="#contacts">Контакты</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Развиваем мышление через кубик Рубика</h1>
+            <p>Интерактивные занятия для детей, которые развивают логику, память и пространственное мышление в игровой форме</p>
+            <a href="#courses" class="cta-button">Записаться на занятие</a>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits" id="benefits">
+        <div class="container">
+            <h2 class="section-title">Почему кубик Рубика полезен для детей?</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">🧠</div>
+                    <h3>Развитие логики</h3>
+                    <p>Решение головоломки развивает логическое и аналитическое мышление, учит выстраивать последовательности действий</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">👁️</div>
+                    <h3>Пространственное мышление</h3>
+                    <p>Работа с 3D-объектом улучшает восприятие пространства и способность мысленно вращать объекты</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">💪</div>
+                    <h3>Уверенность в себе</h3>
+                    <p>Достижение цели - сборка кубика - повышает самооценку и учит perseverence</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Cube Section -->
+    <section class="interactive-cube" id="interactive">
+        <div class="container">
+            <h2 class="section-title">Играйте с кубиком Рубика онлайн</h2>
+            <p>Повращайте наш 3D-кубик и посмотрите, как он работает</p>
+            <div class="cube-container">
+                <div class="cube">
+                    <div class="cube-face cube-face-front">
+                        <div class="cube-small"></div><div class="cube-small"></div><div class="cube-small"></div>
+                        <div class="cube-small"></div><div class="cube-small"></div><div class="cube-small"></div>
+                        <div class="cube-small"></div><div class="cube-small"></div><div class="cube-small"></div>
+                    </div>
+                    <div class="cube-face cube-face-back">
+                        <div class="cube-small"></div><div class="cube-small"></div><div class="cube-small"></div>
+                        <div class="cube-small"></div><div class="cube-small"></div><div class="cube-small"></div>
+                        <div class="cube-small"></div><div class="cube-small"></div><div class="cube-small"></div>
+                    </div>
+                    <div class="cube-face cube-face-right">
+                        <div class="cube-small"></div><div class="cube-small"></div><div class="cube-small"></div>
+                        <div class="cube-small"></div><div class="cube-small"></div><div class="cube-small"></div>
+                        <div class="cube-small"></div><div class="cube-small"></div><div class="cube-small"></div>
+                    </div>
+                    <div class="cube-face cube-face-left">
+                        <div class="cube-small"></div><div class="cube-small"></div><div class="cube-small"></div>
+                        <div class="cube-small"></div><div class="cube-small"></div><div class="cube-small"></div>
+                        <div class="cube-small"></div><div class="cube-small"></div><div class="cube-small"></div>
+                    </div>
+                    <div class="cube-face cube-face-top">
+                        <div class="cube-small"></div><div class="cube-small"></div><div class="cube-small"></div>
+                        <div class="cube-small"></div><div class="cube-small"></div><div class="cube-small"></div>
+                        <div class="cube-small"></div><div class="cube-small"></div><div class="cube-small"></div>
+                    </div>
+                    <div class="cube-face cube-face-bottom">
+                        <div class="cube-small"></div><div class="cube-small"></div><div class="cube-small"></div>
+                        <div class="cube-small"></div><div class="cube-small"></div><div class="cube-small"></div>
+                        <div class="cube-small"></div><div class="cube-small"></div><div class="cube-small"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section class="courses" id="courses">
+        <div class="container">
+            <h2 class="section-title">Наши развивающие курсы</h2>
+            <div class="courses-grid">
+                <div class="course-card">
+                    <div class="course-image">🔢</div>
+                    <div class="course-content">
+                        <h3>Начальный уровень</h3>
+                        <p>Для детей, которые впервые знакомятся с кубиком Рубика. Изучаем основы и простые алгоритмы.</p>
+                        <div class="course-price">1 500 руб./мес</div>
+                        <a href="#" class="cta-button">Записаться</a>
+                    </div>
+                </div>
+                <div class="course-card">
+                    <div class="course-image">🚀</div>
+                    <div class="course-content">
+                        <h3>Продвинутый уровень</h3>
+                        <p>Для тех, кто уже освоил basics. Изучаем более сложные методы сборки и увеличиваем скорость.</p>
+                        <div class="course-price">2 000 руб./мес</div>
+                        <a href="#" class="cta-button">Записаться</a>
+                    </div>
+                </div>
+                <div class="course-card">
+                    <div class="course-image">⚡</div>
+                    <div class="course-content">
+                        <h3>Соревновательный уровень</h3>
+                        <p>Для будущих чемпионов! Подготовка к соревнованиям по спидкубингу.</p>
+                        <div class="course-price">2 500 руб./мес</div>
+                        <a href="#" class="cta-button">Записаться</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contacts">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>RubikMagic</h3>
+                    <p>Развивающие занятия для детей с помощью кубика Рубика. Развиваем логику, память и мышление в игровой форме.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Контакты</h3>
+                    <p>📞 +7 (999) 123-45-67</p>
+                    <p>✉️ info@rubikmagic.ru</p>
+                    <p>📍 Москва, ул. Образцова, 25</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Ссылки</h3>
+                    <ul>
+                        <li><a href="#benefits">Преимущества</a></li>
+                        <li><a href="#courses">Курсы</a></li>
+                        <li><a href="#interactive">Играть</a></li>
+                        <li><a href="#">Блог</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>© 2023 RubikMagic. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Анимация появления элементов при скролле
+        document.addEventListener('DOMContentLoaded', function() {
+            const benefitCards = document.querySelectorAll('.benefit-card');
+            const courseCards = document.querySelectorAll('.course-card');
+            
+            // Функция для проверки, находится ли элемент в области видимости
+            function isInViewport(element) {
+                const rect = element.getBoundingClientRect();
+                return (
+                    rect.top >= 0 &&
+                    rect.left >= 0 &&
+                    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+                );
+            }
+            
+            // Функция для обработки прокрутки
+            function checkScroll() {
+                benefitCards.forEach(card => {
+                    if (isInViewport(card)) {
+                        card.classList.add('visible');
+                    }
+                });
+                
+                courseCards.forEach(card => {
+                    if (isInViewport(card)) {
+                        card.classList.add('visible');
+                    }
+                });
+            }
+            
+            // Проверяем при загрузке и при прокрутке
+            window.addEventListener('load', checkScroll);
+            window.addEventListener('scroll', checkScroll);
+            
+            // Плавная прокрутка к якорям
+            document.querySelectorAll('nav a, .cta-button[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
