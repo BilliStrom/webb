@@ -12,6 +12,10 @@
             --blue: #2196F3;
             --yellow: #FFEB3B;
             --green: #4CAF50;
+            --orange: #FF9800;
+            --purple: #9C27B0;
+            --teal: #009688;
+            --pink: #E91E63;
             --white: #ffffff;
             --black: #212121;
             --gray: #757575;
@@ -258,10 +262,123 @@
             color: var(--black);
         }
         
+        .puzzle-item:nth-child(5) {
+            background: var(--orange);
+            top: 45%;
+            left: 40%;
+            animation-delay: 1.5s;
+        }
+        
+        .puzzle-item:nth-child(6) {
+            background: var(--purple);
+            top: 15%;
+            right: 30%;
+            animation-delay: 2.5s;
+        }
+        
+        /* Rubik's Cube Animation */
+        .rubiks-cube {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            transform-style: preserve-3d;
+            animation: rotateCube 20s infinite linear;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .cube-face {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 2px solid #333;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 2px;
+            padding: 2px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .cube-cell {
+            border-radius: 3px;
+        }
+        
+        .front .cube-cell:nth-child(1) { background-color: var(--red); }
+        .front .cube-cell:nth-child(2) { background-color: var(--white); }
+        .front .cube-cell:nth-child(3) { background-color: var(--blue); }
+        .front .cube-cell:nth-child(4) { background-color: var(--yellow); }
+        .front .cube-cell:nth-child(5) { background-color: var(--white); }
+        .front .cube-cell:nth-child(6) { background-color: var(--white); }
+        .front .cube-cell:nth-child(7) { background-color: var(--green); }
+        .front .cube-cell:nth-child(8) { background-color: var(--white); }
+        .front .cube-cell:nth-child(9) { background-color: var(--orange); }
+        
+        .back .cube-cell:nth-child(1) { background-color: var(--orange); }
+        .back .cube-cell:nth-child(2) { background-color: var(--white); }
+        .back .cube-cell:nth-child(3) { background-color: var(--red); }
+        .back .cube-cell:nth-child(4) { background-color: var(--white); }
+        .back .cube-cell:nth-child(5) { background-color: var(--white); }
+        .back .cube-cell:nth-child(6) { background-color: var(--yellow); }
+        .back .cube-cell:nth-child(7) { background-color: var(--blue); }
+        .back .cube-cell:nth-child(8) { background-color: var(--white); }
+        .back .cube-cell:nth-child(9) { background-color: var(--green); }
+        
+        .right .cube-cell:nth-child(1) { background-color: var(--green); }
+        .right .cube-cell:nth-child(2) { background-color: var(--white); }
+        .right .cube-cell:nth-child(3) { background-color: var(--orange); }
+        .right .cube-cell:nth-child(4) { background-color: var(--white); }
+        .right .cube-cell:nth-child(5) { background-color: var(--white); }
+        .right .cube-cell:nth-child(6) { background-color: var(--red); }
+        .right .cube-cell:nth-child(7) { background-color: var(--yellow); }
+        .right .cube-cell:nth-child(8) { background-color: var(--white); }
+        .right .cube-cell:nth-child(9) { background-color: var(--blue); }
+        
+        .left .cube-cell:nth-child(1) { background-color: var(--blue); }
+        .left .cube-cell:nth-child(2) { background-color: var(--white); }
+        .left .cube-cell:nth-child(3) { background-color: var(--green); }
+        .left .cube-cell:nth-child(4) { background-color: var(--white); }
+        .left .cube-cell:nth-child(5) { background-color: var(--white); }
+        .left .cube-cell:nth-child(6) { background-color: var(--orange); }
+        .left .cube-cell:nth-child(7) { background-color: var(--red); }
+        .left .cube-cell:nth-child(8) { background-color: var(--white); }
+        .left .cube-cell:nth-child(9) { background-color: var(--yellow); }
+        
+        .top .cube-cell:nth-child(1) { background-color: var(--yellow); }
+        .top .cube-cell:nth-child(2) { background-color: var(--white); }
+        .top .cube-cell:nth-child(3) { background-color: var(--blue); }
+        .top .cube-cell:nth-child(4) { background-color: var(--white); }
+        .top .cube-cell:nth-child(5) { background-color: var(--white); }
+        .top .cube-cell:nth-child(6) { background-color: var(--green); }
+        .top .cube-cell:nth-child(7) { background-color: var(--orange); }
+        .top .cube-cell:nth-child(8) { background-color: var(--white); }
+        .top .cube-cell:nth-child(9) { background-color: var(--red); }
+        
+        .bottom .cube-cell:nth-child(1) { background-color: var(--white); }
+        .bottom .cube-cell:nth-child(2) { background-color: var(--red); }
+        .bottom .cube-cell:nth-child(3) { background-color: var(--white); }
+        .bottom .cube-cell:nth-child(4) { background-color: var(--green); }
+        .bottom .cube-cell:nth-child(5) { background-color: var(--white); }
+        .bottom .cube-cell:nth-child(6) { background-color: var(--orange); }
+        .bottom .cube-cell:nth-child(7) { background-color: var(--white); }
+        .bottom .cube-cell:nth-child(8) { background-color: var(--blue); }
+        .bottom .cube-cell:nth-child(9) { background-color: var(--white); }
+        
+        .front { transform: translateZ(50px); }
+        .back { transform: translateZ(-50px) rotateY(180deg); }
+        .right { transform: translateX(50px) rotateY(90deg); }
+        .left { transform: translateX(-50px) rotateY(-90deg); }
+        .top { transform: translateY(-50px) rotateX(90deg); }
+        .bottom { transform: translateY(50px) rotateX(-90deg); }
+        
         /* Why important section */
         .why-important {
             padding: 100px 0;
             background: var(--white);
+            position: relative;
+            overflow: hidden;
         }
         
         .section-title {
@@ -295,6 +412,18 @@
             border-radius: 20px;
             padding: 30px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .problems:before, .benefits:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--red), var(--blue));
         }
         
         .problems h3, .benefits h3 {
@@ -332,6 +461,7 @@
         .skills {
             padding: 100px 0;
             background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f5 100%);
+            position: relative;
         }
         
         .skills-grid {
@@ -404,6 +534,7 @@
         .why-us {
             padding: 100px 0;
             background: var(--white);
+            position: relative;
         }
         
         .features-grid {
@@ -457,6 +588,7 @@
         .testimonials {
             padding: 100px 0;
             background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f5 100%);
+            position: relative;
         }
         
         .testimonials-grid {
@@ -687,6 +819,55 @@
             box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
         }
         
+        /* Decorations */
+        .decoration {
+            position: absolute;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .cube-decoration {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--red), var(--blue));
+            border-radius: 8px;
+            opacity: 0.5;
+            animation: float 8s infinite ease-in-out;
+        }
+        
+        .circle-decoration {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--orange), var(--purple));
+            opacity: 0.3;
+            animation: pulse 6s infinite ease-in-out;
+        }
+        
+        .decoration-1 {
+            top: 20%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+        
+        .decoration-2 {
+            top: 60%;
+            right: 7%;
+            animation-delay: 1s;
+        }
+        
+        .decoration-3 {
+            bottom: 20%;
+            left: 10%;
+            animation-delay: 2s;
+        }
+        
+        .decoration-4 {
+            top: 15%;
+            right: 15%;
+            animation-delay: 3s;
+        }
+        
         /* Animations */
         @keyframes fadeInUp {
             from {
@@ -722,6 +903,39 @@
             }
         }
         
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+        }
+        
+        @keyframes rotateCube {
+            0% {
+                transform: translate(-50%, -50%) rotateX(0) rotateY(0) rotateZ(0);
+            }
+            25% {
+                transform: translate(-50%, -50%) rotateX(90deg) rotateY(90deg) rotateZ(90deg);
+            }
+            50% {
+                transform: translate(-50%, -50%) rotateX(180deg) rotateY(180deg) rotateZ(180deg);
+            }
+            75% {
+                transform: translate(-50%, -50%) rotateX(270deg) rotateY(270deg) rotateZ(270deg);
+            }
+            100% {
+                transform: translate(-50%, -50%) rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+            }
+        }
+        
         /* Responsive styles */
         @media (max-width: 968px) {
             .hero-content {
@@ -743,6 +957,10 @@
             
             .problems-benefits {
                 grid-template-columns: 1fr;
+            }
+            
+            .rubiks-cube {
+                display: none;
             }
         }
         
@@ -784,6 +1002,10 @@
                 width: 80px;
                 height: 80px;
                 font-size: 1.8rem;
+            }
+            
+            .decoration {
+                display: none;
             }
         }
     </style>
@@ -828,10 +1050,82 @@
                         <div class="puzzle-item"><i class="fas fa-pyramid"></i></div>
                         <div class="puzzle-item"><i class="fas fa-snake"></i></div>
                         <div class="puzzle-item"><i class="fas fa-puzzle-piece"></i></div>
+                        <div class="puzzle-item"><i class="fas fa-brain"></i></div>
+                        <div class="puzzle-item"><i class="fas fa-chess-knight"></i></div>
+                    </div>
+                    <div class="rubiks-cube">
+                        <div class="cube-face front">
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                        </div>
+                        <div class="cube-face back">
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                        </div>
+                        <div class="cube-face right">
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                        </div>
+                        <div class="cube-face left">
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                        </div>
+                        <div class="cube-face top">
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                        </div>
+                        <div class="cube-face bottom">
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                            <div class="cube-cell"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="decoration circle-decoration decoration-1"></div>
+        <div class="decoration cube-decoration decoration-2"></div>
     </section>
 
     <!-- Why Important Section -->
@@ -881,6 +1175,8 @@
                 </div>
             </div>
         </div>
+        <div class="decoration cube-decoration decoration-3"></div>
+        <div class="decoration circle-decoration decoration-4"></div>
     </section>
 
     <!-- Skills Section -->
@@ -905,6 +1201,8 @@
                 </div>
             </div>
         </div>
+        <div class="decoration cube-decoration decoration-1"></div>
+        <div class="decoration circle-decoration decoration-2"></div>
     </section>
 
     <!-- Why Us Section -->
@@ -929,6 +1227,8 @@
                 </div>
             </div>
         </div>
+        <div class="decoration cube-decoration decoration-3"></div>
+        <div class="decoration circle-decoration decoration-4"></div>
     </section>
 
     <!-- Testimonials Section -->
@@ -974,6 +1274,8 @@
                 </div>
             </div>
         </div>
+        <div class="decoration cube-decoration decoration-1"></div>
+        <div class="decoration circle-decoration decoration-2"></div>
     </section>
 
     <!-- CTA Section -->
@@ -1122,13 +1424,45 @@
             const puzzles = document.querySelectorAll('.puzzle-item');
             puzzles.forEach(puzzle => {
                 puzzle.addEventListener('mouseover', function() {
-                    this.style.transform = 'scale(1.1)';
+                    this.style.transform = 'scale(1.1) rotate(15deg)';
                 });
                 
                 puzzle.addEventListener('mouseout', function() {
                     this.style.transform = '';
                 });
             });
+            
+            // Add more decorations dynamically
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                for (let i = 0; i < 3; i++) {
+                    const decoration = document.createElement('div');
+                    decoration.classList.add('decoration');
+                    
+                    if (Math.random() > 0.5) {
+                        decoration.classList.add('cube-decoration');
+                        decoration.style.background = `linear-gradient(135deg, ${getRandomColor()}, ${getRandomColor()})`;
+                    } else {
+                        decoration.classList.add('circle-decoration');
+                        decoration.style.background = `linear-gradient(135deg, ${getRandomColor()}, ${getRandomColor()})`;
+                    }
+                    
+                    decoration.style.left = `${Math.random() * 90 + 5}%`;
+                    decoration.style.top = `${Math.random() * 80 + 10}%`;
+                    decoration.style.animationDelay = `${Math.random() * 5}s`;
+                    decoration.style.opacity = '0.2';
+                    
+                    section.appendChild(decoration);
+                }
+            });
+            
+            function getRandomColor() {
+                const colors = [
+                    '#FF5252', '#2196F3', '#FFEB3B', '#4CAF50', 
+                    '#FF9800', '#9C27B0', '#E91E63', '#009688'
+                ];
+                return colors[Math.floor(Math.random() * colors.length)];
+            }
         });
     </script>
 </body>
